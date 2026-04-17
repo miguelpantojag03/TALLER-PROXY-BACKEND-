@@ -6,9 +6,9 @@ spring:
     name: ai-platform-backend
 
   datasource:
-    url: ${JDBC_DATABASE_URL:${DB_URL:jdbc:postgresql://localhost:5432/aiplatform}}
-    username: ${PGUSER:${DB_USER:aiuser}}
-    password: ${PGPASSWORD:${DB_PASS:aipassword}}
+    url: jdbc:postgresql://${PGHOST:localhost}:${PGPORT:5432}/${PGDATABASE:aiplatform}?sslmode=require
+    username: ${PGUSER:aiuser}
+    password: ${PGPASSWORD:aipassword}
     driver-class-name: org.postgresql.Driver
 
   jpa:
