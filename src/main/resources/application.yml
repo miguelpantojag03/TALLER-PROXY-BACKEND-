@@ -1,0 +1,54 @@
+server:
+  port: ${PORT:8080}
+
+spring:
+  application:
+    name: ai-platform-backend
+
+  datasource:
+    url: ${DATABASE_URL:${DB_URL:jdbc:postgresql://localhost:5432/aiplatform}}
+    username: ${PGUSER:${DB_USER:aiuser}}
+    password: ${PGPASSWORD:${DB_PASS:aipassword}}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+      timeout: 2000ms
+      ssl:
+        enabled: ${REDIS_SSL:false}
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:ai-platform-super-secret-key-change-in-production-min-256-bits}
+    expiration-ms: 86400000  # 24 horas
+
+  plans:
+    free:
+      requests-per-minute: 5
+      requests-per-day: 50
+      max-tokens: 500
+    pro:
+      requests-per-minute: 30
+      requests-per-day: 1000
+      max-tokens: 2000
+    enterprise:
+      requests-per-minute: 100
+      requests-per-day: 10000
+      max-tokens: 8000
+
+logging:
+  level:
+    com.aiplatform: INFO
+    org.springframework.security: WARN
